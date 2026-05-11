@@ -40,8 +40,6 @@
     },
     "scripts": {
         "setup": [
-            "composer install",
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "./vendor/bin/sail artisan key:generate",
             "./vendor/bin/sail artisan migrate --force",
             "./vendor/bin/sail npm install",
@@ -50,7 +48,7 @@
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "./vendor/bin/sail up -d",
-            "npx concurrently -c \"#c4b5fd,#fb7185,#fdba74\" \"./vendor/bin/sail artisan queue:listen --tries=1 --timeout=0\" \"./vendor/bin/sail artisan pail --timeout=0\" \"./vendor/bin/sail npm run dev\" --names=queue,logs,vite --kill-others" 
+            "npx concurrently -c \"#c4b5fd,#fb7185,#fdba74\" \"./vendor/bin/sail artisan queue:work --tries=1 --timeout=0\" \"./vendor/bin/sail artisan pail --timeout=0\" \"./vendor/bin/sail npm run dev\" --names=queue,logs,vite --kill-others" 
         ],
         "lint": [
             "pint --parallel"
