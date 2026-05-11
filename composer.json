@@ -40,10 +40,10 @@
     },
     "scripts": {
         "setup": [
-            "./vendor/bin/sail artisan key:generate",
+            "cp .env.example .env || true",
+            "grep -q '^APP_KEY=base64:' .env || ./vendor/bin/sail artisan key:generate",
             "./vendor/bin/sail artisan migrate --force",
-            "./vendor/bin/sail npm install",
-            "./vendor/bin/sail npm run build"
+            "./vendor/bin/sail npm install"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
